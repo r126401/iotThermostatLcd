@@ -1,0 +1,537 @@
+menu "iotThermostat configuration"
+
+config TIPO_DISPOSITIVO
+	int "Tipo de dispositivo"
+	default 0
+	help
+		indica el tipo de dispositivo
+
+
+config NUM_TOPICS
+	int "Topics de la aplicacion"
+	default 3
+	help 
+		Indica los topics a gestionar por el dispositivo
+
+config INDEX_REMOTE_TOPIC_TEMPERATURE
+	int "indice del topic para la lectura remota"
+	default 2
+	help 
+		Indica cual es el indice de la estructura de topics para almacenar el topic remoto. 0 el de la aplicacion, 1 debug. A partir del 2 los topics de usuario
+		
+config PREFIX_TOPIC_PUBLISH_REMOTE_TEMPERATURE
+	string "Prefix publish remote temperature"
+	default "/sub_"
+	help
+		Indica el prefijo para la publicacion de comandos al sensor remoto
+
+config PREFIX_TOPIC_SUBSCRIBE_REMOTE_TEMPERATURE
+	string "Prefix subscribe remote temperature"
+	default "/pub_"
+	help
+		Indica el prefijo para la subscripcion de comandos al sensor remoto
+
+
+config IMPLEMENTS_LEDS
+	bool "identify GPIOS to leds"
+	default n
+	help 
+		Configure GPIOS to implements LEDS
+
+
+
+
+
+config GPIO_PIN_LED
+	int "PIN GPIO LED INDICATOR"
+	default 0
+	depends on IMPLEMENTS_LEDS
+	help 
+		GPIO to implement LED indicator
+	
+config GPIO_PIN_LED_LCD
+	default 0
+	int "PIN GPIO LED INDICATOR_LCD"
+	depends on IMPLEMENTS_LEDS
+	help 
+		GPIO to implement LED indicator
+
+
+menu "Tipo de sensor a utilizar"
+
+choice TEMPERATURE_SENSOR
+    prompt "Seleccion del tipo de sensor de temperatura"
+    help
+        Selecciona el tipo de sensor
+
+    config DHT22
+        bool "DHT22"
+        prompt "DTH22"
+        help
+            DTH22
+
+    config DS18B20
+        bool "DS18B20"
+        prompt "DS18B20"
+        help
+            DS18B20
+endchoice
+endmenu
+
+
+
+
+
+config USE_LCD
+	bool "Indicate if use rgb panel"
+	default n
+	help 
+		include code for implement rgb panel into proyect
+
+            
+menu "Tipo de LCD"
+	depends on USE_LCD
+choice LCD
+	depends on USE_LCD
+    prompt "Tipo de LCD"
+    help
+        Selecciona el tipo de LCD a usar
+
+    config RGB_LCD
+        bool "RGB_LCD"
+        help
+            RGB_LCD
+           
+        config RGB_LCD_PIXEL_CLOCK_HZ
+        depends on RGB_LCD
+        int "RGB_LCD_PIXEL_CLOCK_HZ"
+        default 7000000
+        help
+            RGB_LCD_PIXEL_CLOCK_HZ          
+            
+            
+        config PIN_NUM_BK_LIGHT
+        depends on RGB_LCD
+        int "PIN_NUM_BK_LIGHT"
+        default 2
+        help
+            RGB_LCD_PIN_NUM_BK_LIGHT          
+            
+            
+        config RGB_LCD_PIN_NUM_HSYNC
+        depends on RGB_LCD
+        int "RGB_LCD_PIN_NUM_HSYNC"
+        default 39
+        help
+            RGB_LCD_PIN_NUM_HSYNC          
+            
+            
+        config RGB_LCD_PIN_NUM_VSYNC
+        depends on RGB_LCD
+        int "RGB_LCD_PIN_NUM_VSYNC"
+        default 41
+        help
+            RGB_LCD_PIN_NUM_VSYNC          
+            
+            
+        config RGB_LCD_PIN_NUM_DE
+        depends on RGB_LCD
+        int "RGB_LCD_PIN_NUM_DE"
+        default 40
+        help
+            RGB_LCD_PIN_NUM_DE          
+            
+            
+        config RGB_LCD_PIN_NUM_PCLK
+        depends on RGB_LCD
+        int "RGB_LCD_PIN_NUM_PCLK"
+        default 42
+        help
+            RGB_LCD_PIN_NUM_PCLK          
+            
+            
+        config RGB_LCD_PIN_NUM_DATA0
+        depends on RGB_LCD
+        int "RGB_LCD_PIN_NUM_DATA0"
+        default 8
+        help
+            RGB_LCD_PIN_NUM_DATA0          
+            
+            
+        config RGB_LCD_PIN_NUM_DATA1
+        depends on RGB_LCD
+        int "RGB_LCD_PIN_NUM_DATA1"
+        default 3
+        help
+            RGB_LCD_PIN_NUM_DATA1          
+            
+            
+        config RGB_LCD_PIN_NUM_DATA2
+        depends on RGB_LCD
+        int "RGB_LCD_PIN_NUM_DATA2"
+        default 46
+        help
+            RGB_LCD_PIN_NUM_DATA2          
+            
+            
+        config RGB_LCD_PIN_NUM_DATA3
+        depends on RGB_LCD
+        int "RGB_LCD_PIN_NUM_DATA3"
+        default 9
+        help
+            RGB_LCD_PIN_NUM_DATA3          
+            
+            
+        config RGB_LCD_PIN_NUM_DATA4
+        depends on RGB_LCD
+        int "RGB_LCD_PIN_NUM_DATA4"
+        default 1
+        help
+            RGB_LCD_PIN_NUM_DATA4          
+            
+            
+        config RGB_LCD_PIN_NUM_DATA5
+        depends on RGB_LCD
+        int "RGB_LCD_PIN_NUM_DATA5"
+        default 5
+        help
+            RGB_LCD_PIN_NUM_DATA5          
+            
+            
+        config RGB_LCD_PIN_NUM_DATA6
+        depends on RGB_LCD
+        int "RGB_LCD_PIN_NUM_DATA6"
+        default 6
+        help
+            RGB_LCD_PIN_NUM_DATA6         
+            
+            
+        config RGB_LCD_PIN_NUM_DATA7
+        depends on RGB_LCD
+        int "RGB_LCD_PIN_NUM_DATA7"
+        default 7
+        help
+            RGB_LCD_PIN_NUM_DATA7         
+            
+            
+        config RGB_LCD_PIN_NUM_DATA8
+        depends on RGB_LCD
+        int "RGB_LCD_PIN_NUM_DATA8"
+        default 15
+        help
+            RGB_LCD_PIN_NUM_DATA8          
+            
+            
+        config RGB_LCD_PIN_NUM_DATA9
+        depends on RGB_LCD
+        int "RGB_LCD_PIN_NUM_DATA9"
+        default 16
+        help
+            RGB_LCD_PIN_NUM_DATA9         
+            
+            
+        config RGB_LCD_PIN_NUM_DATA10
+        depends on RGB_LCD
+        int "RGB_LCD_PIN_NUM_DATA10"
+        default 4
+        help
+            RGB_LCD_PIN_NUM_DATA10          
+            
+            
+        config RGB_LCD_PIN_NUM_DATA11
+        depends on RGB_LCD
+        int "RGB_LCD_PIN_NUM_DATA11"
+        default 45
+        help
+            RGB_LCD_PIN_NUM_DATA11          
+            
+            
+        config RGB_LCD_PIN_NUM_DATA12
+        depends on RGB_LCD
+        int "RGB_LCD_PIN_NUM_DATA12"
+        default 48
+        help
+            RGB_LCD_PIN_NUM_DATA12          
+            
+            
+        config RGB_LCD_PIN_NUM_DATA13
+        depends on RGB_LCD
+        int "RGB_LCD_PIN_NUM_DATA13"
+        default 47
+        help
+            RGB_LCD_PIN_NUM_DATA13          
+            
+            
+        config RGB_LCD_PIN_NUM_DATA14
+        depends on RGB_LCD
+        int "RGB_LCD_PIN_NUM_DATA14"
+        default 21
+        help
+            RGB_LCD_PIN_NUM_DATA14          
+            
+            
+        config RGB_LCD_PIN_NUM_DATA15
+        depends on RGB_LCD
+        int "RGB_LCD_PIN_NUM_DATA15"
+        default 14
+        help
+            RGB_LCD_PIN_NUM_DATA15          
+            
+            
+        config RGB_LCD_PIN_NUM_DISP_EN
+        depends on RGB_LCD
+        int "RGB_LCD_PIN_NUM_DISP_EN"
+        default -1
+        help
+            RGB_LCD_PIN_NUM_DISP_EN          
+            
+
+    config DOUBLE_FB
+        bool "Use double Frame Buffer"
+        depends on RGB_LCD
+        default "n"
+        help
+            Enable this option, driver will allocate two frame buffers.
+
+    config USE_BOUNCE_BUFFER
+    	depends on RGB_LCD
+        depends on !DOUBLE_FB
+        bool "Use bounce buffer"
+        help
+            Enable bounce buffer mode can achieve higher PCLK frequency at the cost of higher CPU consumption.
+
+    config AVOID_TEAR_EFFECT_WITH_SEM
+    	depends on RGB_LCD
+        depends on !DOUBLE_FB
+        bool "Avoid tearing effect"
+        default "y"
+        help
+            Enable this option, the example will use a pair of semaphores to avoid the tearing effect.
+            Note, if the Double Frame Buffer is used, then we can also avoid the tearing effect without the lock.
+
+
+
+            
+    config SPI_LCD
+        bool "SPI_LCD"
+        help
+            LCD con SPI
+
+            
+        config LCD_PIXEL_CLOCK_HZ
+        depends on SPI_LCD
+        int "LCD_PIXEL_CLOCK_HZ"
+        default 20000000
+        help
+            Pin LCD_PIXEL_CLOCK_HZ            
+            
+        config PIN_NUM_BK_LIGHT
+        depends on SPI_LCD
+        int "PIN_NUM_BK_LIGHT"
+        default 33
+        help
+            Pin BACKLIGHT
+            
+        config PIN_SPI_LCD_NUM_SCLK
+        depends on SPI_LCD
+        int "PIN_SPI_LCD_NUM_SCLK"
+        default 25
+        help
+            Pin SCLK
+
+        config PIN_SPI_LCD_NUM_MOSI
+        depends on SPI_LCD
+        int "PIN_SPI_LCD_NUM_MOSI"
+        default 26
+        help
+            Pin MOSI
+            
+        config PIN_SPI_LCD_NUM_MISO
+        depends on SPI_LCD
+        int "PIN_SPI_LCD_NUM_MISO"
+        default -1
+        help
+            Pin MISO
+
+                        
+        config PIN_SPI_LCD_NUM_DC
+        depends on SPI_LCD
+        int "PIN_SPI_LCD_NUM_DC"
+        default 27
+        help
+            Pin para encender la pantalla
+
+            
+        config PIN_SPI_LCD_NUM_LCD_RST
+        depends on SPI_LCD
+        int "PIN_SPI_LCD_NUM_LCD_RST"
+        default 21
+        help
+            Pin para encender la pantalla
+
+
+            
+        config PIN_SPI_LCD_NUM_LCD_CS
+        depends on SPI_LCD
+        int "PIN_SPI_LCD_NUM_LCD_CS"
+        default 5
+        help
+            Pin para encender la pantalla
+            
+        config SPI_LCD_CMD_BITS
+        depends on SPI_LCD
+        int "SPI_LCD_CMD_BITS"
+        default 8
+        help
+            Numero de bits del comando
+            
+        config SPI_LCD_PARAM_BITS
+        depends on SPI_LCD
+        int "SPI_LCD_PARAM_BITS"
+        default 8
+        help
+            Numero de bits de los parametros                        
+            
+        config SPI_LCD_ILI9341
+        depends on SPI_LCD
+        bool "SPI_LCD_ILI9341"
+        default y
+        help
+            SPI_LCD_ILI9341   
+            
+endchoice
+endmenu
+
+
+
+config LCD_H_RES
+	depends on USE_LCD
+	int "Horizontal resolution rgb panel"
+	default 800
+	help
+		Indicate the horizontal resolution of rgb panel
+		
+config LCD_V_RES
+	depends on USE_LCD
+	int "Vertical resolution rgb panel"
+	default 480
+	help
+		Indicate the vertical resolution of rgb panel		
+
+	
+config TIME_OFF_BACKLIGHT
+	depends on USE_LCD
+	int "Tiempo de apagado del LCD"
+	default 60
+	help 
+		Indica el tiempo en segundos en el que se apagara la pantalla
+
+
+
+
+
+menu "Tipo de touch"
+	depends on USE_LCD
+
+    choice "TOUCH_TYPE"
+        prompt "Seleccion del tipo de touch para la pantalla"
+        help
+	        Selecciona el tipo de touch a usar
+	        
+        config GT911
+	        bool "GT911"
+	        prompt "GT911"
+		        help
+			        GT911
+        config XPT2046
+	        bool "XPT2046"
+	        prompt "XPT2046"
+	        help
+		        XPT2046
+		        
+    endchoice
+    
+        config SPI_TOUCH_SCLK
+        depends on XPT2046
+        int "SPI_TOUCH_SCLK"
+        default 12
+        help
+            SPI_TOUCH_SCLK 
+    
+        config SPI_TOUCH_MOSI
+        depends on XPT2046
+        int "SPI_TOUCH_MOSI (DIN)"
+        default 11
+        help
+            SPI_TOUCH_MOSI (DIN)
+            
+     
+        config SPI_TOUCH_MISO 
+        depends on XPT2046
+        int "SPI_TOUCH_MISO (DOUT)"
+        default 13
+        help
+            SPI_TOUCH_MISO (DOUT)
+            
+      
+        config SPI_TOUCH_INTR
+        depends on XPT2046
+        int "SPI_TOUCH_INTR"
+        default 18
+        help
+            SPI_TOUCH_INTR 
+            
+      
+        config SPI_TOUCH_CS
+        depends on XPT2046
+        int "SPI_TOUCH_CS"
+        default 38
+        help
+            SPI_TOUCH_CS 
+            
+               
+    
+
+endmenu
+
+menu "Task Configuration"
+
+
+
+
+    config RESOURCE_EVENT_TASK
+        int "memory event task"
+        default 4096
+        help 
+            Indica la memoria de la tarea event_task
+    
+    config RESOURCE_MQTT_TASK
+        int "memory mqtt task"
+        default 8192
+        help 
+            Indica la memoria de la tarea mqtt_task
+    
+    config RESOURCE_SMARTCONFIG_TASK
+        int "memory smartconfig task"
+        default 4096
+        help 
+            Indica la memoria de la tarea smartconfig_task
+    
+    
+    config RESOURCE_OTA_TASK
+        int "memory ota task"
+        default 4096
+        help 
+            Indica la memoria de la tarea ota_task
+    
+    config RESOURCE_APP_TASK
+        int "memory app task"
+        default 4096
+        help 
+            Indica la memoria de la tarea app_task
+    endmenu
+
+
+
+            
+endmenu
