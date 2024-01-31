@@ -408,6 +408,28 @@ void lv_set_style_buttons_threshold() {
 
 }
 
+static void event_handler_factory_reset(lv_event_t *event) {
+
+	ESP_LOGE(TAG, ""TRAZAR"VAMOS A EJECUTAR EL RESET DE FABRICA", INFOTRAZA);
+	lv_obj_t * obj = lv_event_get_current_target(event);
+    ESP_LOGE(TAG, "Button %s clicked", lv_msgbox_get_active_btn_text(obj));
+
+
+}
+
+
+static void lv_msgbox_confirm_factory() {
+
+	static const char * btns[] = {"Aceptar", "Cancelar", ""};
+	lv_obj_t *box = lv_msgbox_create(lv_main_screen, "Factory reset", "Si aceptas, se perderan todos los datos del dispositivo", btns, true);
+	lv_obj_add_event_cb(box, event_handler_factory_reset, LV_EVENT_RELEASED, NULL);
+	lv_obj_center(box);
+
+
+
+}
+
+
 static void event_handler_up_threshold(lv_event_t *event) {
 
 	send_event_device(__func__,EVENT_UP_THRESHOLD);
@@ -425,15 +447,41 @@ static void event_handler_down_threshold(lv_event_t *event) {
 }
 
 
+
 static void event_handler_button_reset(lv_event_t *event) {
 
-	ESP_LOGI(TAG, ""TRAZAR"PULSADO BOTON RESET", INFOTRAZA);		
-	send_event_device(__func__, EVENT_RESET_BUTTON);
+	static bool pulsado = false;
+
+	
+	switch (event->code) {
+		case LV_EVENT_LONG_PRESSED:
+			ESP_LOGE(TAG, ""TRAZAR"PULSADO BOTON LONG RESET", INFOTRAZA);
+			lv_msgbox_confirm_factory();
+			//send_event_device(__func__, EVENT_FACTORY_BUTTON);
+			pulsado = true;
+			break;
+		case LV_EVENT_RELEASED:
+			if (pulsado) {
+				ESP_LOGE(TAG, ""TRAZAR" NO SE HACE NADA PULSADO BOTON RESET", INFOTRAZA);
+				
+			} else {
+				ESP_LOGE(TAG, ""TRAZAR"PULSADO BOTON RESET", INFOTRAZA);
+				send_event_device(__func__, EVENT_RESET_BUTTON);
+			}
+			pulsado = false;
+			
+			break;
+		default:
+			ESP_LOGE(TAG, ""TRAZAR"OTRO EVENTO DEL BOTON RESET", INFOTRAZA);
+			break;
+	}
+
+			
 	
 	
-
-
 }
+
+
 
 static void event_handler_button_action(lv_event_t *event) {
 	ESP_LOGI(TAG, ""TRAZAR"PULSADO BOTON ACTION_BUTTON", INFOTRAZA);
@@ -457,7 +505,9 @@ void lv_create_layout_buttons_threshold(DATOS_APLICACION *datosApp) {
 
 	lv_obj_add_event_cb(lv_button_up_threshold, event_handler_up_threshold, LV_EVENT_CLICKED, datosApp);
 	lv_obj_add_event_cb(lv_button_down_threshold, event_handler_down_threshold, LV_EVENT_CLICKED, datosApp);
-	lv_obj_add_event_cb(lv_button_reset_app, event_handler_button_reset, LV_EVENT_CLICKED, datosApp);
+	lv_obj_add_event_cb(lv_button_reset_app, event_handler_button_reset, LV_EVENT_RELEASED, datosApp);
+	lv_obj_add_event_cb(lv_button_reset_app, event_handler_button_reset, LV_EVENT_LONG_PRESSED, datosApp);
+
 	lv_obj_add_event_cb(lv_button_action, event_handler_button_action, LV_EVENT_CLICKED, datosApp);
 
 
