@@ -413,6 +413,7 @@ static void event_handler_factory_reset(lv_event_t *event) {
 	ESP_LOGE(TAG, ""TRAZAR"VAMOS A EJECUTAR EL RESET DE FABRICA", INFOTRAZA);
 	lv_obj_t * obj = lv_event_get_current_target(event);
     ESP_LOGE(TAG, "Button %s clicked", lv_msgbox_get_active_btn_text(obj));
+	lv_msgbox_get_active_btn
 
 
 }
