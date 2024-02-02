@@ -495,13 +495,7 @@ esp_err_t backlight_on() {
 		gpio_set_level(CONFIG_PIN_NUM_BK_LIGHT, 1);
 		ESP_LOGE(TAG, "SE ENCIENDE LA PANTALLA");
 	} else {
-		if (esp_timer_is_active(timer_backlight)) {
-            ESP_ERROR_CHECK(esp_timer_stop(timer_backlight));
-			ESP_LOGE(TAG, "CANCELAMOS TEMPORIZADOS Y REINICIAMOS");
-			
-		} else {
-			ESP_LOGE(TAG, "REBOTE");
-		}
+        lv_cancel_timing_backlight();
 	}
     ESP_LOGW(TAG,""TRAZAR"REINICIAMOS LA TEMPORIZACION PARA BACKLIGHT", INFOTRAZA);
     ESP_ERROR_CHECK(esp_timer_start_once(timer_backlight, (CONFIG_TIME_OFF_BACKLIGHT * 1000000)));
@@ -554,17 +548,10 @@ void lv_cancel_timing_backlight() {
 	if (esp_timer_is_active(timer_backlight)) {
 		ESP_LOGI(TAG, ""TRAZAR"se cancela temporizador", INFOTRAZA);
 		esp_timer_stop(timer_backlight);
-		//esp_timer_delete(timer_backlight);
 	}
 
 
 }
 
-
-void lv_init_spi_lcd(void *arg) {
-
-
-
-}
 
 

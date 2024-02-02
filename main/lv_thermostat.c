@@ -411,9 +411,21 @@ void lv_set_style_buttons_threshold() {
 static void event_handler_factory_reset(lv_event_t *event) {
 
 	ESP_LOGE(TAG, ""TRAZAR"VAMOS A EJECUTAR EL RESET DE FABRICA", INFOTRAZA);
-	lv_obj_t * obj = lv_event_get_current_target(event);
-    ESP_LOGE(TAG, "Button %s clicked", lv_msgbox_get_active_btn_text(obj));
-	lv_msgbox_get_active_btn
+	lv_obj_t *button = lv_event_get_current_target(event);
+
+	if (lv_msgbox_get_active_btn(button) == 0) {
+		ESP_LOGW(TAG, ""TRAZAR"EL BOTON PULSADO ES ACEPTAR", INFOTRAZA);
+		send_event_device(__func__, EVENT_FACTORY_BUTTON);
+	}else {
+		ESP_LOGW(TAG, ""TRAZAR"EL BOTON PULSADO ES CANCELAR", INFOTRAZA);
+	}
+	
+	
+	lv_msgbox_close(button);
+	ESP_LOGW(TAG, ""TRAZAR"MSGBOX CERRADA", INFOTRAZA);
+
+
+
 
 
 }
@@ -423,7 +435,7 @@ static void lv_msgbox_confirm_factory() {
 
 	static const char * btns[] = {"Aceptar", "Cancelar", ""};
 	lv_obj_t *box = lv_msgbox_create(lv_main_screen, "Factory reset", "Si aceptas, se perderan todos los datos del dispositivo", btns, true);
-	lv_obj_add_event_cb(box, event_handler_factory_reset, LV_EVENT_RELEASED, NULL);
+	lv_obj_add_event_cb(box, event_handler_factory_reset, LV_EVENT_RELEASED, box);
 	lv_obj_center(box);
 
 
@@ -458,7 +470,6 @@ static void event_handler_button_reset(lv_event_t *event) {
 		case LV_EVENT_LONG_PRESSED:
 			ESP_LOGE(TAG, ""TRAZAR"PULSADO BOTON LONG RESET", INFOTRAZA);
 			lv_msgbox_confirm_factory();
-			//send_event_device(__func__, EVENT_FACTORY_BUTTON);
 			pulsado = true;
 			break;
 		case LV_EVENT_RELEASED:
@@ -740,7 +751,6 @@ void lv_factory_boot() {
 }
 
 
-
 void lv_screen_thermostat(DATOS_APLICACION *datosApp) {
 
 	enum ESTADO_RELE estado = ON;
@@ -774,6 +784,8 @@ void lv_screen_thermostat(DATOS_APLICACION *datosApp) {
 	//lv_status_device(datosApp);
 	lv_set_status_heating(datosApp, estado);
 	lv_update_threshold(datosApp, true);
+
+
 	//lv_update_temperature(datosApp);
 
 }
