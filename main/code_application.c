@@ -339,14 +339,7 @@ void gpio_rele_in_out() {
 
 
 
-esp_err_t init_code_application(DATOS_APLICACION *datosApp) {
-
-
-
-	DATOS_GENERALES *datosGenerales;
-	datosGenerales = (DATOS_GENERALES*) calloc(1, sizeof(DATOS_GENERALES));
-	datosApp->datosGenerales = datosGenerales;
-
+esp_err_t init_hw_device(DATOS_APLICACION *datosApp) {
 
 
 	gpio_rele_in_out();

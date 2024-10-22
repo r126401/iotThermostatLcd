@@ -21,7 +21,7 @@
  * @param datosApp es la estructura de aplicacion
  * @return ESP_OK cuando la inicializacion del dispositivo especifico es correcta
  */
-esp_err_t init_code_application(DATOS_APLICACION *datosApp);
+esp_err_t init_hw_device(DATOS_APLICACION *datosApp);
 void task_iotThermostat(void *parametros);
 void thermostat_action(DATOS_APLICACION *datosApp);
 float redondear_temperatura(float temperatura);

@@ -13,7 +13,15 @@
     "common_data.h": "c",
     "mqtt_client.h": "c",
     "conexiones_mqtt.h": "c",
-    "local_events_device.h": "c"
+    "local_events_device.h": "c",
+    "user_interface.h": "c",
+    "string.h": "c",
+    "alarmas.h": "c",
+    "applib.h": "c",
+    "configuracion.h": "c",
+    "logging.h": "c",
+    "esp_transport.h": "c",
+    "cstdint": "c"
   },
   "idf.adapterTargetName": "esp32s3",
   "idf.flashType": "UART",

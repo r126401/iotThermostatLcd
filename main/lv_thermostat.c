@@ -880,11 +880,17 @@ void lv_update_relay(ESTADO_RELE relay) {
 
 static void event_handler_smartconfig(lv_event_t *event) {
 
+	static bool pulse = false;
 
-	ESP_LOGI(TAG, ""TRAZAR"event_handler_smartconfig", INFOTRAZA);
-	send_event(__func__,EVENT_SMARTCONFIG_START);
-	lv_obj_add_flag(lv_icon_wifi, LV_OBJ_FLAG_HIDDEN);
-	lv_create_screen_factory();
+	if (!pulse) {
+		pulse = true;
+		ESP_LOGI(TAG, ""TRAZAR"event_handler_smartconfig", INFOTRAZA);
+		send_event(__func__,EVENT_SMARTCONFIG_START);
+		lv_obj_add_flag(lv_icon_wifi, LV_OBJ_FLAG_HIDDEN);
+		lv_create_screen_factory();
+
+
+	}
 }
 
 
@@ -941,13 +947,15 @@ void lv_configure_smartconfig() {
 	//creating objects
 
 	if (lv_icon_wifi == NULL) {
+		ESP_LOGW(TAG, ""TRAZAR" Vamos a crear el objeto lv_icon_wifi", INFOTRAZA);
 		lv_icon_wifi = lv_btn_create(lv_main_screen);
 		lv_text_icon_wifi = lv_label_create(lv_icon_wifi);
-	}
 
-
+	ESP_LOGW(TAG, ""TRAZAR" Vamos a esconder el objeto lv_icon_wifi", INFOTRAZA);
 	lv_obj_clear_flag(lv_icon_wifi, LV_OBJ_FLAG_HIDDEN);
 	lv_label_set_text(lv_text_icon_wifi, LV_SYMBOL_WIFI);
+
+	}
 
 	//style objects
 	lv_set_style_status_application();
