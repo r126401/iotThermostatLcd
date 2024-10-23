@@ -1,0 +1,15 @@
+{
+  "comando": {
+    "token": "c212c184-c713-4785-9598-06000e2d47a5",
+    "date": "23/10/2024 19:42:05",
+    "dlgComando": 26,
+    "nombreComando": "UPGRADE_FIRMWARE"
+  },
+  "upgradeFirmware": {
+    "otaServer": "jajicaiot.ddns.net",
+    "otaPort": 8070,
+    "otaUrl": "/firmware/iotThermostat/",
+    "otaFile": "newVersion_2410231947.bin",
+    "otaVersion": "2410231947"
+  }
+}
