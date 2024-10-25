@@ -31,7 +31,8 @@ static const char *TAG = "code_application";
 
 #define TIMEOUT_LECTURA_REMOTA 5000 //ms
 #ifdef CONFIG_GPIO_PIN_DS18B20
-#define GPIO_OUTPUT_PIN_SEL  (1ULL<<CONFIG_GPIO_PIN_DS18B20)
+#define GPIO_OUTPUT_PIN_SEL  (1ULL<<CONFIG_GPIO_PIN_DS18B20) || (1ULL<<CONFIG_GPIO_PIN_RELE))
+
 #endif
 
 
