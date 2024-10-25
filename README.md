@@ -18,7 +18,7 @@ Para poder continuar con el desarrollo es necesario hacer las siguientes tareas.
 
 1. git clone --recursive git@github.com:r126401/iotThermostatLcd.git
 
-2. Descargar los componentes adicionales del proyeceo.
+2. Descargar los componentes adicionales del proyecto.
    
    1. git clone --recursive git@github.com:r126401/components.git
    
