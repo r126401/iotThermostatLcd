@@ -8,7 +8,7 @@ Caracteristicas:
 
 - Temperatura umbral por defecto cuando no hay programacion.
 
-
+El proyecto esta compilado con la version 5.3.1 de idf.
 
 **Instalacion**
 
